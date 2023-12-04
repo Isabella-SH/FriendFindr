@@ -4,6 +4,7 @@ import com.example.friendfindr.data.model.PersonResponse
 import retrofit2.Call
 import retrofit2.http.GET
 
+//kotlin->interface
 interface PersonService {
 
 
