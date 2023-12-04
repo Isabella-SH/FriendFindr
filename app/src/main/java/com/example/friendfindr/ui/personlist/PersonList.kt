@@ -69,7 +69,7 @@ fun PersonList(viewModel: PersonListViewModel){
             }
         }
 
-        items(viewModel.people.value.orEmpty()){person->
+        items(viewModel.people){person->
             PersonCard(person,
 
                 //defino las funciones y llamo su implementacion del view model
