@@ -44,16 +44,27 @@ fun PersonList(viewModel: PersonListViewModel){
 
     LazyColumn{
         items(people){person->
-            PersonCard(person)
+            PersonCard(person,
+
+                //defino las funciones y llamo su implementacion del view model
+                delete = {
+                    viewModel.delete(person)
+                },
+
+                insert={
+                    viewModel.save(person)
+                }
+            )
         }
     }
 }
 
-@Composable
-fun PersonCard(person: Person) {
+@Composable                   //lamo a los metodos del view model para realizar lo de favorite
+fun PersonCard(person: Person, delete:()->Unit, insert:()->Unit) {
 
     //creo un estado que guarde si el character es un favorito o no
     val isFavorite= remember{ mutableStateOf(false) }
+    isFavorite.value=person.isFavorite //actualizamos el valor de favorito tal como lo tiene el person recibido
 
 
     Card(modifier = Modifier.padding(8.dp)) {
@@ -92,10 +103,11 @@ fun PersonCard(person: Person) {
             IconButton(
                 onClick = {
                     // Lógica de insertar o eliminar favorito
-                    if (isFavorite.value) {
-                        //delete()
-                    } else {
-                        //insert()
+
+                    if(isFavorite.value){ //si es falso(valor inicial)
+                        delete()  //borralo de favoritos
+                    }else{ //si es true
+                        insert()    //insert()
                     }
 
                     //cada que de click, el valor que tenia, ahora sera lo contrario
@@ -116,4 +128,3 @@ fun PersonCard(person: Person) {
     }
 
 }
-

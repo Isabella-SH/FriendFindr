@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -19,6 +20,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.friendfindr.ui.favorites.Favorites
 import com.example.friendfindr.ui.personlist.PersonList
 import com.example.friendfindr.ui.personlist.PersonListViewModel
 
@@ -32,7 +34,8 @@ fun Home() {
 
     //crear iteraccion con botones
     val bottomNavegationItems=listOf(
-        BottomNavigationScreen.PersonList,       //esto yo lo escribo
+        BottomNavigationScreen.PersonList,      //"PersonList" esto yo lo escribo, no es la clase
+        BottomNavigationScreen.Favorites,       //"Favorites" esto yo lo escribo, no es la clase
     )
 
     //esta sera la parte de navegacion en la parte inferior
@@ -81,15 +84,19 @@ fun Main(navController: NavHostController, modifier: Modifier){
     ){
 
         composable(BottomNavigationScreen.PersonList.route){
-            PersonList(viewModel)
+            PersonList(viewModel)  //aca llamamos a la entidad que cree
         }
 
+        composable(BottomNavigationScreen.Favorites.route){
+            Favorites(viewModel)  //aca llamamos a la entidad que cree
+        }
     }
 }
 
 //creamos clase sellada
 sealed class BottomNavigationScreen(val route: String, val icon: ImageVector){
     object PersonList: BottomNavigationScreen("Personas", Icons.Filled.Home)
+    object Favorites: BottomNavigationScreen("Favoritos", Icons.Filled.Favorite)
 
 }
 
