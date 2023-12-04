@@ -19,13 +19,10 @@ data class Person(  //datos de cada heroe
 • Foto (picture/thumbnail)
     * */
     val id:Id,
-
-    val first: Name,
-    val last: Name,
-
+    val name: Name,
     val email:String,
     val cell:String,
-    val thumbnail: Picture,
+    val picture: Picture,
 
 
     //para favoritos
@@ -37,7 +34,6 @@ data class Person(  //datos de cada heroe
 • Ciudad (location/city)
 • Foto (picture/thumbnail)
 */
-    val title: Name,
     val gender:String,
     val location:Location,
 
