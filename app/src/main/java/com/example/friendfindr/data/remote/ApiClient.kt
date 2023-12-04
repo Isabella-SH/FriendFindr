@@ -9,7 +9,7 @@ object ApiClient {
     ///CREO UNA INSTANCIA DEL SERVICIO
 
     //https://randomuser.me/api/?results=5  ->este es tod el link
-    const val FRIEND_FINDR_API_BASE_URL="https://randomuser.me/api/"  //siempre hasta un "/"
+    const val FRIEND_FINDR_API_BASE_URL="https://randomuser.me/"  //siempre hasta un "/"
     private var personService: PersonService?=null
 
     fun getPersonService(): PersonService {

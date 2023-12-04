@@ -12,16 +12,19 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,16 +37,39 @@ import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 
 //kotlin->file
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PersonList(viewModel: PersonListViewModel){
 
-    //instancia del view model
-    val people:List<Person> by viewModel.people.observeAsState(listOf())
+    var searchQuery by remember { mutableStateOf("1") }
 
-    viewModel.getAll()
+    LazyColumn {
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TextField(
+                    value = searchQuery,
+                    onValueChange = { searchQuery = it },
+                    label = { Text("Cantidad de resultados") },
+                    modifier = Modifier.weight(1f)
+                )
 
-    LazyColumn{
-        items(people){person->
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Button(
+                    onClick = { viewModel.getAll(searchQuery.toInt()) },
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                ) {
+                    Text("Buscar")
+                }
+            }
+        }
+
+        items(viewModel.people.value.orEmpty()){person->
             PersonCard(person,
 
                 //defino las funciones y llamo su implementacion del view model

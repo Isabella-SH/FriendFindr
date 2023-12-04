@@ -22,9 +22,9 @@ class PersonRepository(
 
 {
                                          //posibles resultados de consumir el api:
-    fun getAll(callback: (Result<List<Person>>) -> Unit){
+    fun getAll(numResults: Int,callback: (Result<List<Person>>) -> Unit){
 
-        val getAll=personService.getAll()
+        val getAll=personService.getAll(numResults)
 
         //la variable
         getAll.enqueue(object : Callback<PersonResponse> {

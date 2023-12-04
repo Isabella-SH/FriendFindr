@@ -12,8 +12,6 @@ class PersonListViewModel (
     private val personRepository: PersonRepository = PersonRepository()
 ): ViewModel(){//manejar los estados que tenfria personlist
 
-    //_CHARACTER TOMARA EL VALOR DE TOD LO QUE SE LLAMA CON EL REPOSITORY
-
     //tiene la lista de los person
     private var _people= MutableLiveData<List<Person>>()
 
@@ -22,9 +20,9 @@ class PersonListViewModel (
 
 
                             //devuelve todos las person, metodo del repository que toma del service
-    fun getAll(){
+    fun getAll(numResults: Int) {
 
-        personRepository.getAll { result->
+        personRepository.getAll(numResults) { result->
             if (result is Result.Success){
                 _people.value=result.data!!   //llama a lo que esta en el response
             }
