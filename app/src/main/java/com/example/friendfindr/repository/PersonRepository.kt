@@ -9,8 +9,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 //kotlin->class
-class CharacterRepository(
-    val personService:PersonService = ApiClient.getPersonService()
+class PersonRepository(
+    private val personService:PersonService = ApiClient.getPersonService()
 )
 
 {
